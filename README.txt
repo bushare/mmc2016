@@ -6,3 +6,7 @@ swig http://www.swig.org/Doc3.0/Contents.html
 zhihu https://www.zhihu.com/question/23003213
 
 GNURadio:
+www.gnuradio.org/
+
+Python IDE and SDK:
+file.vetrm.net/
