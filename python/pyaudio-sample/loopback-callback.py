@@ -11,7 +11,8 @@ p = pyaudio.PyAudio()
 
 def callback(in_data, frame_count, time_info, status):
     print(frame_count, time_info, status)
-    return (in_data, pyaudio.paContinue)
+    # return None, pa.paComplete when This was the last block of audio data
+    return in_data, pyaudio.paContinue
 
 stream = p.open(format=p.get_format_from_width(WIDTH),
                 channels=CHANNELS,
