@@ -37,10 +37,10 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    sound_str = msg.payload
+    sound_buf = msg.payload
     ostream.start_stream()
     for idx in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-        ostream.write(sound_str[(idx * CHUNK): ((idx + 1) * CHUNK)],
+        ostream.write(sound_buf[(idx * CHUNK): ((idx + 1) * CHUNK)],
                       CHUNK)
     ostream.stop_stream()
 
@@ -54,17 +54,17 @@ client.loop_start()
 
 while True:
     print("* recording")
-    sound_str = bytearray()
+    sound_buf = bytearray()
     istream.start_stream()
     for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
         data = istream.read(CHUNK)
-        sound_str += data
+        sound_buf += data
     istream.stop_stream()
     print("* done")
 
     time.sleep(1)
 
     print("* send")
-    client.publish("file", sound_str)
+    client.publish("file", sound_buf)
 
     time.sleep(5)
