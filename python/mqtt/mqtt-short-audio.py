@@ -1,7 +1,6 @@
 import paho.mqtt.client as mqtt
 import pyaudio
 import time
-from cStringIO import StringIO
 
 ## audio setup
 CHUNK = 256
@@ -38,7 +37,7 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    sound_str = str(msg.payload)
+    sound_str = msg.payload
     ostream.start_stream()
     for idx in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
         ostream.write(sound_str[(idx * CHUNK): ((idx + 1) * CHUNK)],
@@ -54,20 +53,18 @@ client.connect("mqtt.vetrm.net", 1883, 60)
 client.loop_start()
 
 while True:
-    time.sleep(3)
-
     print("* recording")
-    sound_str = StringIO()
+    sound_str = bytearray()
     istream.start_stream()
     for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
         data = istream.read(CHUNK)
-        sound_str.write(data)
+        sound_str += data
     istream.stop_stream()
     print("* done")
 
     time.sleep(1)
 
     print("* send")
-    client.publish("file", bytearray(sound_str.getvalue()))
+    client.publish("file", sound_str)
 
-    time.sleep(2)
+    time.sleep(5)

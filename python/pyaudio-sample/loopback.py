@@ -4,7 +4,7 @@ import sys
 CHUNK = 16
 WIDTH = 2
 CHANNELS = 1
-RATE = 8000
+RATE = 44100
 RECORD_SECONDS = 5
 
 pa = pyaudio.PyAudio()

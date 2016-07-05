@@ -1,8 +1,8 @@
 import paho.mqtt.client as mqtt
 import time
 
-WAVE_DUP_NAME = "test-dup.wav"
-WAVE_ORI_NAME = "test-ori.wav"
+FILE_DUP_NAME = __file__ + ".copy"
+FILE_ORI_NAME = __file__
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -14,8 +14,8 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    with open(WAVE_DUP_NAME, "wb") as wav:
-        wav.write(str(msg.payload))
+    with open(FILE_DUP_NAME, "wb") as f:
+        f.write(str(msg.payload))
         print(msg.topic+" got message")
 
 client = mqtt.Client()
@@ -28,5 +28,5 @@ client.loop_start()
 
 while True:
     time.sleep(1)
-    with open(WAVE_ORI_NAME, "rb") as wav:
-        client.publish("file", bytearray(wav.read()))
+    with open(FILE_ORI_NAME, "rb") as f:
+        client.publish("file", bytearray(f.read()))
