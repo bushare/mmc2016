@@ -2,6 +2,12 @@
 pip install pyaudio
 ```
 
+on ubuntu, one should install portaudio library
+
+```bash
+apt-get install portaudio19-dev
+```
+
 ### for windows user
 
 check the device name with
