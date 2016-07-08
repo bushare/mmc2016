@@ -28,5 +28,5 @@ stream.start_stream()
 while True:
     data, address = sock.recvfrom(ac.CHUNK)
     stream.write(data)
-    print data, address
+    print(data, address)
 stream.stop_stream()
