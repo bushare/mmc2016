@@ -40,7 +40,8 @@ def on_message(client, userdata, msg):
     sound_buf = msg.payload
     ostream.start_stream()
     for idx in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
-        ostream.write(sound_buf[(idx * CHUNK): ((idx + 1) * CHUNK)],
+        ostream.write(sound_buf[(idx * WIDTH * CHUNK):
+                                ((idx + 1) * WIDTH * CHUNK)],
                       CHUNK)
     ostream.stop_stream()
 
