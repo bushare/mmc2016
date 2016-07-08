@@ -7,5 +7,5 @@ class AudioConf():
 
 
 class NetConf():
-    PORT = 26544
+    PORT = 12345
     ADDR = "224.0.0.1"
