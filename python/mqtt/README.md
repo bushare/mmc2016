@@ -44,3 +44,5 @@ install opencv and python-opencv
 python mqtt-send-picture.py
 ```
 
+on windows: check opencv.org for installation guide
+
